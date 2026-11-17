@@ -270,7 +270,8 @@ export function checkOf(c: RawContext): CheckDetail {
   const conclusion = c.conclusion ?? null;
   const status: CheckStatus = FAILED_RUN.has(conclusion ?? "")
     ? "failing"
-    : c.status !== undefined && c.status !== "COMPLETED"
+    : // A run with a conclusion is finished: GitHub sometimes still reports its status as IN_PROGRESS.
+      conclusion === null && c.status !== undefined && c.status !== "COMPLETED"
       ? "pending"
       : conclusion === "SUCCESS"
         ? "passing"

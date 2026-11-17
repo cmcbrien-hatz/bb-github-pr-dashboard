@@ -85,6 +85,7 @@ test("a check names its pipeline: the Actions workflow, else the CI app", () => 
   assert.equal(jenkins.workflow, "Jenkins");
   assert.equal(jenkins.status, "pending");
   assert.equal(checkOf({ __typename: "CheckRun", name: "x", status: "COMPLETED", conclusion: "SKIPPED" }).status, "skipped");
+  assert.equal(checkOf({ __typename: "CheckRun", name: "x", status: "IN_PROGRESS", conclusion: "SUCCESS" }).status, "passing");
 });
 
 const me = { login: "me" };
